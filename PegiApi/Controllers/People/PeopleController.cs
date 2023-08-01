@@ -13,14 +13,12 @@ public class PeopleController : ControllerBase
 {
     private readonly PeopleService _peopleService;
     private readonly UsersService _usersService;
-    private readonly LocationsService _locationsService;
 
 
-    public PeopleController(PeopleService peopleService, UsersService usersService,LocationsService locationsService)
+    public PeopleController(PeopleService peopleService, UsersService usersService)
     {
         _peopleService = peopleService;
         _usersService = usersService;
-        _locationsService = locationsService;
     }
 
         [HttpPost]
@@ -52,26 +50,7 @@ public class PeopleController : ControllerBase
             {
                 return BadRequest(new Response<Void>("no se encontro a la persona"));
             }
-
-            var departamentAndCity = _locationsService.GetDepartmentByCityCode(person.CitiesCode);
-            var newPerson = new
-            {
-                Document = person.Document,
-                IdentificationType = person.IdentificationType,
-                FirstName = person.FirstName,
-                SecondName = person.SecondName,
-                FirstLastName = person.FirstLastName,
-                SecondLastName = person.SecondLastName,
-                CivilState = person.CivilState,
-                Gender = person.Gender,
-                BirthDate = person.BirthDate,
-                Phone = person.Phone,
-                InstitutionalMail = person.InstitutionalMail,
-                CitiesCode = departamentAndCity[0],
-                DepartamentCode = departamentAndCity[1]
-            };
-
-            return Ok(new Response<PersonResponse>(newPerson.Adapt<PersonResponse>()));
+            return Ok(new Response<PersonResponse>(person.Adapt<PersonResponse>()));
         }
         catch (PersonExeption e)
         {

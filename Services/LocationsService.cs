@@ -25,14 +25,12 @@ public class LocationsService
             city.Department != null && city.Department.Name == department);
     }
 
-    public List<String> GetDepartmentByCityCode(string cityCode)
+    public Department GetDepartmentByCityCode(string cityCode)
     {
         City city = _citiesRepository.Find(d => d.Id == cityCode);
         if (city != null)
         {
-            Department department = _departmentsRepository.Find(d => d.Id == city.DepartmentCode);
-            var result = new List<string> { department.Name, city.Name };
-            return result;
+            return _departmentsRepository.Find(d => d.Id == city.DepartmentCode);
         }
         return null;
     }
