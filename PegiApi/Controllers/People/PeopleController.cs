@@ -53,22 +53,22 @@ public class PeopleController : ControllerBase
                 return BadRequest(new Response<Void>("no se encontro a la persona"));
             }
 
-            var departament = _locationsService.GetDepartmentByCityCode(person.CitiesCode);
+            var departamentAndCity = _locationsService.GetDepartmentByCityCode(person.CitiesCode);
             var newPerson = new
             {
-                 Document= person.Document,
-                 IdentificationType= person.IdentificationType,
-                 FirstName= person.FirstName,
-                 SecondName= person.SecondName,
-                 FirstLastName= person.FirstLastName,
-                 SecondLastName= person.SecondLastName,
-                 CivilState= person.CivilState,
-                 Gender= person.Gender,
-                 BirthDate= person.BirthDate,
-                 Phone= person.Phone,
-                 InstitutionalMail= person.InstitutionalMail,
-                 CitiesCode= person.CitiesCode,
-                 DepartamentCode= departament.Id
+                Document = person.Document,
+                IdentificationType = person.IdentificationType,
+                FirstName = person.FirstName,
+                SecondName = person.SecondName,
+                FirstLastName = person.FirstLastName,
+                SecondLastName = person.SecondLastName,
+                CivilState = person.CivilState,
+                Gender = person.Gender,
+                BirthDate = person.BirthDate,
+                Phone = person.Phone,
+                InstitutionalMail = person.InstitutionalMail,
+                CitiesCode = departamentAndCity[0],
+                DepartamentCode = departamentAndCity[1]
             };
 
             return Ok(new Response<PersonResponse>(newPerson.Adapt<PersonResponse>()));
