@@ -32,10 +32,10 @@ public class ProposalController : ControllerBase
         {
             Entities.Proposal? newProposal =
                 proposalRequest.Adapt<Entities.Proposal>();
-            //Corregir search (solucion temporal)
+
             Entities.Proposal oldProposal =
                 _proposalService.GetProposalCode(newProposal.Code);
-            if (newProposal.Code == oldProposal?.Code && oldProposal?.Code!=null)
+            if (newProposal.Code == oldProposal?.Code && oldProposal.Code != null)
             {
                 _proposalService.UpdateProposal(newProposal);
             }
