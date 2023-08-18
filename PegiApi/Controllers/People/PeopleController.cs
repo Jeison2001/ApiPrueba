@@ -17,13 +17,14 @@ public class PeopleController : ControllerBase
     private readonly ProposalService _proposalService;
     private readonly StudentsService _studentService;
     private readonly ProfessorService _professorService;
-    public PeopleController(PeopleService peopleService, UsersService usersService, LocationsService locationsService,ProposalService proposalService, StudentsService studentService)
+    public PeopleController(PeopleService peopleService, UsersService usersService, LocationsService locationsService,ProposalService proposalService, StudentsService studentService,ProfessorService professorService)
     {
         _peopleService = peopleService;
         _usersService = usersService;
         _locationsService = locationsService;
         _proposalService = proposalService;
         _studentService = studentService;
+        _professorService = professorService;
     }
 
     [HttpPost]
@@ -141,13 +142,12 @@ public class PeopleController : ControllerBase
                 {
                     (string messageStudent, bool response) = _studentService.DeleteStudent(student);
 
-                }
-                if (professor != null)
+                }else if (professor != null)
                 {
                     (string messageStudent, bool response) = _professorService.DeleteProfessor(professor);
 
                 }
-                
+
                 string message = _peopleService.DeletePerson(document);
 
                 return Ok(new Response<Void>(message, false));
