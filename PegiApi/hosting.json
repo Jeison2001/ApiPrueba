@@ -1,9 +1,0 @@
-{
-  "Kestrel": {
-    "Endpoints": {
-      "Http": {
-        "Listen": "*"
-      }
-    }
-  }
-}
