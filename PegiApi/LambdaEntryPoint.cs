@@ -29,7 +29,7 @@ public class LambdaEntryPoint :
     protected override void Init(IWebHostBuilder builder)
     {
         builder
-            .UseStartup<Startup>();
+            .UseStartup<Startup>().UseUrls("http://*:80");
     }
 
     /// <summary>
